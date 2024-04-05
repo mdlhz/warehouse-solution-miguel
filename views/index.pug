@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div.NavButtons
+    form(action='/users' method='post')
+      button(type='submit') Picking
+      button(type='submit') Packing
