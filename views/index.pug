@@ -3,7 +3,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  div.NavButtons
-    form(action='/users' method='post')
-      button(type='submit') Picking
-      button(type='submit') Packing
+  form(action='/orders' method='get')
+    button(type='submit') Picking
+    button(type='submit') Packing
+  ul
+    each item in list
+      li #{item}
