@@ -3,9 +3,29 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  form(action='/orders' method='get')
-    button(type='submit') Picking
-    button(type='submit') Packing
-  ul
-    each item in list
-      li #{item}
+  div.NavButtons
+    form(action='/orders' method='get')
+      button(type='submit') Picking
+    form(action='/pack' method='get')
+      button(type='submit') Packing
+  if list
+    ul
+      each item in list
+        li #{item}
+  if orders
+    ul
+      each order in orders
+        li Order #: #{order["order-id"]}
+          li Line Items
+            ul
+              each item in order["line-items"]
+                li #{item.name}
+                  ul
+                    each product in item.items
+                      li #{product}
+          li Ships to
+            ol #{order["ships-to"][0]}
+            ol #{order["ships-to"][1]}
+        br
+        hr
+

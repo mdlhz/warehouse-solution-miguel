@@ -34,8 +34,29 @@ const getPickingList = function () {
 
   return pickingList;
 }
+
+const getPackingList = function () {
+  const orders = getOrders();
+  const products = getProducts();
+  let packingList = [];
+  for (const order of orders.orders) {
+    const packOrder = Object.create(null);
+    packOrder["order-id"] = order.id;
+    packOrder["order-date"] = order.date;
+    packOrder["ships-to"] = [
+      order["customer-name"],
+      order["shipping-address"]
+    ];
+    packOrder["line-items"]  = order["line-items"].map(item => {
+      return products.products.filter(product => product.id === item["product-id"]);
+    }).flat(1);
+    packingList.push(packOrder);
+  }
+  return packingList;
+}
 module.exports = {
   getOrders,
   getProducts,
-  getPickingList
+  getPickingList,
+  getPackingList
 };
